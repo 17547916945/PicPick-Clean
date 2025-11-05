@@ -121,36 +121,29 @@ struct PhotoManagementView: View {
     }
 
     private var progressInfo: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             Image(systemName: "photo.stack")
                 .foregroundColor(.blue)
-                .font(.subheadline)
+                .font(.caption)
 
-            Text("已处理 \(viewModel.processedCount)/\(viewModel.totalCount) 张")
+            // 使用单个 Text 视图确保不会换行，并支持自适应缩放
+            Text(progressText)
                 .font(.subheadline)
                 .fontWeight(.medium)
+                .foregroundColor(.primary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
 
-            if viewModel.deleteCount > 0 {
-                Text("•")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+            Spacer(minLength: 0)
+        }
+    }
 
-                Text("删除 \(viewModel.deleteCount) 张")
-                    .font(.subheadline)
-                    .foregroundColor(.red)
-                    .fontWeight(.medium)
-
-                Text("•")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-
-                Text("节省 \(viewModel.deletedPhotosSizeFormatted)")
-                    .font(.subheadline)
-                    .foregroundColor(.orange)
-                    .fontWeight(.medium)
-            }
-
-            Spacer()
+    /// 进度文本（紧凑格式）
+    private var progressText: String {
+        if viewModel.deleteCount > 0 {
+            return "已处理 \(viewModel.processedCount)/\(viewModel.totalCount) · 删除 \(viewModel.deleteCount) · 节省 \(viewModel.deletedPhotosSizeFormatted)"
+        } else {
+            return "已处理 \(viewModel.processedCount)/\(viewModel.totalCount)"
         }
     }
 
@@ -503,6 +496,12 @@ struct PhotoManagementView: View {
     private func initializeApp() async {
         viewModel.checkAuthorization()
 
+        // 如果权限未请求，自动请求权限
+        if viewModel.authorizationStatus == .notDetermined {
+            await viewModel.requestAuthorization()
+        }
+
+        // 如果已授权，加载照片
         if viewModel.authorizationStatus == .authorized || viewModel.authorizationStatus == .limited {
             await viewModel.loadPhotos()
         }

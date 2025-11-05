@@ -255,11 +255,37 @@ class PhotoService: ObservableObject {
         return totalSize
     }
 
+    /// 获取单个照片的文件大小
+    func getFileSize(for asset: PHAsset) -> Int64 {
+        let resources = PHAssetResource.assetResources(for: asset)
+        let size = resources.reduce(Int64(0)) { sum, resource in
+            if let fileSize = resource.value(forKey: "fileSize") as? Int64 {
+                return sum + fileSize
+            }
+            return sum
+        }
+        return size
+    }
+
     /// 格式化文件大小
     func formatFileSize(_ bytes: Int64) -> String {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = [.useKB, .useMB, .useGB]
         formatter.countStyle = .file
         return formatter.string(fromByteCount: bytes)
+    }
+
+    /// 格式化文件大小（简洁版，如 "6.2M"）
+    func formatFileSizeCompact(_ bytes: Int64) -> String {
+        let formatter = ByteCountFormatter()
+        formatter.allowedUnits = [.useKB, .useMB, .useGB]
+        formatter.countStyle = .file
+        formatter.includesUnit = true
+        formatter.includesCount = true
+        formatter.isAdaptive = true
+
+        // 获取格式化后的字符串，去掉空格
+        let formattedString = formatter.string(fromByteCount: bytes)
+        return formattedString.replacingOccurrences(of: " ", with: "")
     }
 }

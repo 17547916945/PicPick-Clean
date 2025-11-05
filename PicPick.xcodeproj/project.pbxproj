@@ -346,6 +346,8 @@
 				DEVELOPMENT_TEAM = 4T7529A92F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PicPick 需要此权限来保存照片到您的相册。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PicPick 需要访问您的相册来帮助您浏览和管理照片。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -375,6 +377,8 @@
 				DEVELOPMENT_TEAM = 4T7529A92F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PicPick 需要此权限来保存照片到您的相册。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PicPick 需要访问您的相册来帮助您浏览和管理照片。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

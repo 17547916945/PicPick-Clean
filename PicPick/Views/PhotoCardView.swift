@@ -18,9 +18,13 @@ struct PhotoCardView: View {
     @State private var offset: CGSize = .zero
     @State private var image: UIImage?
     @State private var isLoading = true
+    @State private var fileSize: String = ""
 
     // 滑动阈值（超过此距离触发操作）
     private let swipeThreshold: CGFloat = 100
+
+    // PhotoService 实例用于获取文件大小
+    private let photoService = PhotoService()
 
     var body: some View {
         GeometryReader { geometry in
@@ -171,9 +175,20 @@ struct PhotoCardView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
 
-                    Text(formatTime(date))
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
+                    // 时间 + 文件大小
+                    HStack(spacing: 4) {
+                        Text(formatTime(date))
+                            .foregroundColor(.white.opacity(0.8))
+
+                        if !fileSize.isEmpty {
+                            Text("·")
+                                .foregroundColor(.white.opacity(0.5))
+
+                            Text(fileSize)
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                    }
+                    .font(.caption)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
@@ -227,6 +242,7 @@ struct PhotoCardView: View {
     private func loadImage() async {
         isLoading = true
 
+        // 加载图片
         let targetSize = CGSize(width: 1000, height: 1000)
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
@@ -243,8 +259,13 @@ struct PhotoCardView: View {
             }
         }
 
+        // 获取文件大小
+        let sizeInBytes = photoService.getFileSize(for: photo.asset)
+        let formattedSize = photoService.formatFileSizeCompact(sizeInBytes)
+
         await MainActor.run {
             self.image = loadedImage
+            self.fileSize = formattedSize
             self.isLoading = false
         }
     }
