@@ -1,0 +1,17 @@
+//
+//  PicPickApp.swift
+//  PicPick
+//
+//  Created by ZhaRui on 2025/11/5.
+//
+
+import SwiftUI
+
+@main
+struct PicPickApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
