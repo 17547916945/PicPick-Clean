@@ -8,17 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		D9B74C0B2EBB3A09002364A2 /* PicPickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C0A2EBB3A09002364A2 /* PicPickApp.swift */; };
-		D9B74C0D2EBB3A09002364A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C0C2EBB3A09002364A2 /* ContentView.swift */; };
 		D9B74C0F2EBB3A0B002364A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9B74C0E2EBB3A0B002364A2 /* Assets.xcassets */; };
 		D9B74C122EBB3A0B002364A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9B74C112EBB3A0B002364A2 /* Preview Assets.xcassets */; };
+		D9B74C262EBB406C002364A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9B74C182EBB406C002364A2 /* Assets.xcassets */; };
+		D9B74C272EBB406C002364A2 /* PhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C1A2EBB406C002364A2 /* PhotoItem.swift */; };
+		D9B74C282EBB406C002364A2 /* PhotoManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C1C2EBB406C002364A2 /* PhotoManagementViewModel.swift */; };
+		D9B74C292EBB406C002364A2 /* DeleteConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C1E2EBB406C002364A2 /* DeleteConfirmationView.swift */; };
+		D9B74C2A2EBB406C002364A2 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C1F2EBB406C002364A2 /* DateFilterView.swift */; };
+		D9B74C2B2EBB406C002364A2 /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C202EBB406C002364A2 /* PhotoCardView.swift */; };
+		D9B74C2C2EBB406C002364A2 /* PhotoManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C212EBB406C002364A2 /* PhotoManagementView.swift */; };
+		D9B74C2D2EBB406C002364A2 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C232EBB406C002364A2 /* PhotoService.swift */; };
+		D9B74C2E2EBB406C002364A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9B74C252EBB406C002364A2 /* Preview Assets.xcassets */; };
+		D9B74C302EBB4A79002364A2 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C2F2EBB4A79002364A2 /* FilterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D9B74C072EBB3A09002364A2 /* PicPick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9B74C0A2EBB3A09002364A2 /* PicPickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicPickApp.swift; sourceTree = "<group>"; };
-		D9B74C0C2EBB3A09002364A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D9B74C0E2EBB3A0B002364A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9B74C112EBB3A0B002364A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D9B74C182EBB406C002364A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9B74C1A2EBB406C002364A2 /* PhotoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoItem.swift; sourceTree = "<group>"; };
+		D9B74C1C2EBB406C002364A2 /* PhotoManagementViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManagementViewModel.swift; sourceTree = "<group>"; };
+		D9B74C1E2EBB406C002364A2 /* DeleteConfirmationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationView.swift; sourceTree = "<group>"; };
+		D9B74C1F2EBB406C002364A2 /* DateFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
+		D9B74C202EBB406C002364A2 /* PhotoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
+		D9B74C212EBB406C002364A2 /* PhotoManagementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManagementView.swift; sourceTree = "<group>"; };
+		D9B74C232EBB406C002364A2 /* PhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		D9B74C252EBB406C002364A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D9B74C2F2EBB4A79002364A2 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +69,13 @@
 		D9B74C092EBB3A09002364A2 /* PicPick */ = {
 			isa = PBXGroup;
 			children = (
+				D9B74C182EBB406C002364A2 /* Assets.xcassets */,
+				D9B74C192EBB406C002364A2 /* Models */,
+				D9B74C242EBB406C002364A2 /* Preview Content */,
+				D9B74C222EBB406C002364A2 /* Services */,
+				D9B74C1B2EBB406C002364A2 /* ViewModels */,
+				D9B74C1D2EBB406C002364A2 /* Views */,
 				D9B74C0A2EBB3A09002364A2 /* PicPickApp.swift */,
-				D9B74C0C2EBB3A09002364A2 /* ContentView.swift */,
 				D9B74C0E2EBB3A0B002364A2 /* Assets.xcassets */,
 				D9B74C102EBB3A0B002364A2 /* Preview Content */,
 			);
@@ -63,6 +86,50 @@
 			isa = PBXGroup;
 			children = (
 				D9B74C112EBB3A0B002364A2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D9B74C192EBB406C002364A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D9B74C1A2EBB406C002364A2 /* PhotoItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D9B74C1B2EBB406C002364A2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D9B74C1C2EBB406C002364A2 /* PhotoManagementViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D9B74C1D2EBB406C002364A2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9B74C2F2EBB4A79002364A2 /* FilterView.swift */,
+				D9B74C1E2EBB406C002364A2 /* DeleteConfirmationView.swift */,
+				D9B74C1F2EBB406C002364A2 /* DateFilterView.swift */,
+				D9B74C202EBB406C002364A2 /* PhotoCardView.swift */,
+				D9B74C212EBB406C002364A2 /* PhotoManagementView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D9B74C222EBB406C002364A2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D9B74C232EBB406C002364A2 /* PhotoService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D9B74C242EBB406C002364A2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D9B74C252EBB406C002364A2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -125,7 +192,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9B74C2E2EBB406C002364A2 /* Preview Assets.xcassets in Resources */,
 				D9B74C122EBB3A0B002364A2 /* Preview Assets.xcassets in Resources */,
+				D9B74C262EBB406C002364A2 /* Assets.xcassets in Resources */,
 				D9B74C0F2EBB3A0B002364A2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,8 +206,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9B74C0D2EBB3A09002364A2 /* ContentView.swift in Sources */,
+				D9B74C282EBB406C002364A2 /* PhotoManagementViewModel.swift in Sources */,
+				D9B74C2D2EBB406C002364A2 /* PhotoService.swift in Sources */,
+				D9B74C2A2EBB406C002364A2 /* DateFilterView.swift in Sources */,
 				D9B74C0B2EBB3A09002364A2 /* PicPickApp.swift in Sources */,
+				D9B74C302EBB4A79002364A2 /* FilterView.swift in Sources */,
+				D9B74C272EBB406C002364A2 /* PhotoItem.swift in Sources */,
+				D9B74C2B2EBB406C002364A2 /* PhotoCardView.swift in Sources */,
+				D9B74C2C2EBB406C002364A2 /* PhotoManagementView.swift in Sources */,
+				D9B74C292EBB406C002364A2 /* DeleteConfirmationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
