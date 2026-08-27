@@ -203,6 +203,104 @@ class PhotoService: ObservableObject {
         )
     }
 
+    // MARK: - 智能分析支持
+
+    /// 获取所有截图照片（PHAsset mediaSubtypes 直接识别）
+    func fetchScreenshots() -> [PhotoItem] {
+        fetchAllPhotos(mediaType: .screenshots)
+    }
+
+    /// 加载用于本地分析的图片（限制尺寸，节省内存，不上传任何数据）
+    func loadAnalysisImage(for asset: PHAsset, maxDimension: CGFloat = 1024) async -> CGImage? {
+        await withCheckedContinuation { continuation in
+            let options = PHImageRequestOptions()
+            options.deliveryMode = .highQualityFormat
+            options.isNetworkAccessAllowed = true
+            options.resizeMode = .fast
+
+            imageManager.requestImage(
+                for: asset,
+                targetSize: CGSize(width: maxDimension, height: maxDimension),
+                contentMode: .aspectFit,
+                options: options
+            ) { image, _ in
+                continuation.resume(returning: image?.cgImage)
+            }
+        }
+    }
+
+    /// 按 localIdentifier 批量获取 PHAsset（供待删除列表使用，照片可能已不存在）
+    func fetchAssets(withLocalIdentifiers identifiers: [String]) -> [PHAsset] {
+        guard !identifiers.isEmpty else { return [] }
+        var assets: [PHAsset] = []
+        PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+            .enumerateObjects { asset, _, _ in
+                assets.append(asset)
+            }
+        return assets
+    }
+
+    // MARK: - 相册管理
+
+    /// 获取用户的普通相册（不含系统智能相册，用于「下拉添加到相册」）
+    func fetchUserAlbums() -> [PhotoAlbum] {
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: true)]
+
+        let collections = PHAssetCollection.fetchAssetCollections(
+            with: .album,
+            subtype: .albumRegular,
+            options: options
+        )
+
+        var albums: [PhotoAlbum] = []
+        collections.enumerateObjects { collection, _, _ in
+            albums.append(PhotoAlbum(
+                collection: collection,
+                estimatedCount: collection.estimatedAssetCount
+            ))
+        }
+        return albums
+    }
+
+    /// 将照片添加到指定相册
+    func add(_ asset: PHAsset, to album: PhotoAlbum) async -> Bool {
+        await withCheckedContinuation { continuation in
+            PHPhotoLibrary.shared().performChanges({
+                if let changeRequest = PHAssetCollectionChangeRequest(for: album.collection) {
+                    changeRequest.addAssets([asset] as NSArray)
+                }
+            }) { success, _ in
+                continuation.resume(returning: success)
+            }
+        }
+    }
+
+    /// 新建相册并返回，失败返回 nil
+    func createAlbum(named title: String) async -> PhotoAlbum? {
+        await withCheckedContinuation { continuation in
+            var localIdentifier: String?
+
+            PHPhotoLibrary.shared().performChanges({
+                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: title)
+                localIdentifier = request.placeholderForCreatedAssetCollection.localIdentifier
+            }) { success, _ in
+                guard success, let identifier = localIdentifier else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                let collections = PHAssetCollection.fetchAssetCollections(
+                    withLocalIdentifiers: [identifier],
+                    options: nil
+                )
+                let album = collections.firstObject.map {
+                    PhotoAlbum(collection: $0, estimatedCount: $0.estimatedAssetCount)
+                }
+                continuation.resume(returning: album)
+            }
+        }
+    }
+
     // MARK: - 照片删除
 
     /// 批量删除照片

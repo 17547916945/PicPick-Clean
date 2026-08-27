@@ -11,7 +11,7 @@ import SwiftUI
 struct PicPickApp: App {
     var body: some Scene {
         WindowGroup {
-            PhotoManagementView()
+            HomeView()
                 .preferredColorScheme(nil) // 支持系统自动切换暗黑模式
         }
     }

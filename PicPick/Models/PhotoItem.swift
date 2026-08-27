@@ -27,8 +27,8 @@ struct PhotoItem: Identifiable, Equatable {
     }
 }
 
-/// 滑动状态枚举
-enum SwipeStatus {
+/// 滑动状态枚举（String 原始值用于断点继续的持久化）
+enum SwipeStatus: String {
     case none       // 未处理
     case keep       // 保留（右滑）
     case delete     // 删除（左滑）

@@ -23,7 +23,7 @@ struct DeleteConfirmationView: View {
             warningIcon
 
             // 标题
-            Text("确认删除")
+            Text("确认清理")
                 .font(.title2)
                 .fontWeight(.bold)
 
@@ -31,12 +31,12 @@ struct DeleteConfirmationView: View {
             VStack(spacing: 12) {
                 infoRow(
                     icon: "photo.on.rectangle.angled",
-                    text: "将删除 \(photoCount) 张照片"
+                    text: "将 \(photoCount) 张照片移入待删除列表"
                 )
 
                 infoRow(
                     icon: "internaldrive",
-                    text: "预计释放 \(estimatedSize)"
+                    text: "永久删除后预计释放 \(estimatedSize)"
                 )
 
                 warningText
@@ -95,13 +95,13 @@ struct DeleteConfirmationView: View {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(.orange)
 
-                Text("重要提示")
+                Text("双重安全删除")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
             }
 
-            Text("此操作不可撤销，照片将从设备中永久删除。")
+            Text("照片将先进入 App 内「待删除列表」，仍保留在相册中，可随时恢复。永久删除时才真正移除，且系统「最近删除」还会再保留 30 天。")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -131,13 +131,13 @@ struct DeleteConfirmationView: View {
                     )
             }
 
-            // 确认删除按钮
+            // 确认清理按钮
             Button {
                 Task {
                     await confirmDelete()
                 }
             } label: {
-                Text("确认删除")
+                Text("移入待删除列表")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)

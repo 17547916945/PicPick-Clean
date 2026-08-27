@@ -151,6 +151,7 @@ struct FilterView: View {
     private var quickSelectSection: some View {
         Section {
             VStack(spacing: 12) {
+                quickSelectThisMonthButton()
                 quickSelectButton(title: "最近 7 天", days: 7)
                 quickSelectButton(title: "最近 30 天", days: 30)
                 quickSelectButton(title: "最近 90 天", days: 90)
@@ -159,6 +160,34 @@ struct FilterView: View {
         } header: {
             Text("快速选择")
         }
+    }
+
+    /// 「本月」快捷按钮 - 恢复默认的当月整理队列
+    private func quickSelectThisMonthButton() -> some View {
+        Button {
+            let calendar = Calendar.current
+            let startOfMonth = calendar.date(
+                from: calendar.dateComponents([.year, .month], from: Date())
+            ) ?? Date()
+            startDate = startOfMonth
+            endDate = Date()
+            isDateFilterEnabled = true
+        } label: {
+            HStack {
+                Text("本月（默认）")
+                    .font(.body)
+                Spacer()
+                Image(systemName: "arrow.right")
+                    .font(.caption)
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.green.opacity(0.1))
+            )
+        }
+        .buttonStyle(.plain)
     }
 
     private func quickSelectButton(title: String, days: Int) -> some View {

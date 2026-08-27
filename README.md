@@ -1,220 +1,95 @@
-# PicPick - iOS 相册管理 APP
+# PicPick - 「减法相册」式 iOS 照片清理应用
 
-一个简洁优雅的 iOS 相册管理应用，采用类似 Tinder 的滑动交互方式，帮助你快速整理照片。
+基于 [zruiii/PicPick](https://github.com/zruiii/PicPick) 开发的减法相册（SubAlbum）风格照片清理 App：卡片式滑动整理 + 全本地智能识别 + 双重安全删除，**所有照片处理均在设备本地完成，不上传任何数据，不收集任何信息**。
 
 ## ✨ 功能特性
 
-### 核心功能
-- ✅ **卡片式滑动交互** - 左滑删除，右滑保留，流畅自然
-- ✅ **智能日期筛选** - 精确到天的日期范围筛选，支持快速选择
-- ✅ **批量删除管理** - 查看标记的照片数量和预计释放的空间
-- ✅ **实时进度追踪** - 清晰显示已处理和剩余照片数量
-- ✅ **权限智能管理** - 友好的权限请求和状态提示
+### 核心整理（减法相册式交互）
+- **左滑**：标记删除，红色 "DELETE ✕" 印章动画 + 触感反馈滑出
+- **右滑**：标记保留，绿色 "KEEP ✓" 印章动画滑出
+- **下拉**：添加到指定相册（支持新建相册）
+- 卡片底部显示拍摄日期与序号（如 "12 / 345"）
+- 顶部进度条：当月已处理 / 总数 + 累计释放空间（MB/GB）
 
-### UI/UX 亮点
-- 🎨 现代简洁的设计风格
-- 🌈 流畅的动画效果和手势反馈
-- 🌙 完整支持暗黑模式
-- 📱 适配各种屏幕尺寸
-- 🎯 直观的视觉指示器（红色删除/绿色保留）
+### 智能识别（全程本地运行）
+- **重复/相似照片**：Vision `VNGenerateImageFeaturePrintRequest` 提取特征向量 + 余弦相似度（阈值 0.85）聚类，每组一键「保留最佳，删除其余」
+- **截图归类**：`PHAsset.mediaSubtypes` 直接识别
+- **模糊检测**：Core Image Laplacian 方差算法
+- **首页进度环**：动画展示累计释放空间与本月整体清理进度
+
+### 特色与安全
+- **照片盲盒**：随机抽取一个有照片的月份开始整理（参考减法相册 4.0.3）
+- **双重安全删除**：标记照片先进入 App 内「待删除列表」（可单张/批量恢复）→ 永久删除时调用 `PHPhotoLibrary.performChanges` 并弹出 iOS 系统确认弹窗 → 系统「最近删除」再兜底 30 天
+- **断点继续**：清理进度持久化，下次打开从上次中断的位置继续
+
+### 商业化
+- 免费用户每日清理额度 50 张；PicPick Pro 一次性买断（StoreKit 2）解锁无限量
+- 设置页内置隐私声明与隐私政策链接（GitHub Pages 模板见 `docs/privacy-policy/`）
 
 ## 🛠 技术栈
 
 - **框架**: SwiftUI + Combine
 - **照片处理**: PhotoKit
+- **智能分析**: Vision（特征提取）、Core Image（模糊检测）、Accelerate（vDSP 相似度加速）
+- **内购**: StoreKit 2（非消耗型一次性买断）
 - **架构模式**: MVVM
-- **最低版本**: iOS 16.0+
-- **语言**: Swift 5.0+
+- **最低版本**: iOS 16.6 / Xcode 16+
 
 ## 📂 项目结构
 
 ```
 PicPick/
-├── Models/                     # 数据模型层
-│   └── PhotoItem.swift        # 照片项目模型
-├── Services/                   # 服务层
-│   └── PhotoService.swift     # 相册服务（PhotoKit 封装）
-├── ViewModels/                 # 视图模型层
-│   └── PhotoManagementViewModel.swift  # 主视图模型
-├── Views/                      # 视图层
-│   ├── PhotoManagementView.swift      # 主视图
-│   ├── PhotoCardView.swift            # 卡片滑动视图
-│   ├── DateFilterView.swift           # 日期筛选视图
-│   └── DeleteConfirmationView.swift   # 删除确认弹窗
-├── Assets.xcassets/           # 资源文件
-├── Info.plist                 # 配置文件
-└── PicPickApp.swift          # App 入口
+├── Config.swift               # 全局品牌配置（商品 ID、隐私政策链接、额度）
+├── Models/                    # 数据模型层
+│   ├── PhotoItem.swift        # 照片模型 + 滑动状态
+│   ├── PhotoAlbum.swift       # 用户相册模型
+│   ├── DuplicateGroup.swift   # 相似照片分组 + 并查集
+│   ├── SmartCleanupModels.swift
+│   └── PendingDeleteItem.swift
+├── Services/                  # 服务层
+│   ├── PhotoService.swift     # PhotoKit 封装（权限/加载/删除/相册）
+│   ├── PhotoAnalysisService.swift  # Vision 特征向量 + 余弦相似度 + Laplacian 模糊度
+│   ├── StorageStatsStore.swift     # 累计释放空间 + 每月处理计数
+│   ├── PendingDeleteStore.swift    # App 内待删除列表（第一层安全）
+│   ├── CleaningProgressStore.swift # 断点继续快照
+│   ├── DailyQuotaService.swift     # 每日免费额度
+│   └── PaywallService.swift        # StoreKit 2 内购
+├── ViewModels/                # 视图模型层
+└── Views/                     # 视图层
+    ├── HomeView.swift         # 首页：进度环 + 功能入口
+    ├── PhotoManagementView.swift    # 滑动清理主界面
+    ├── PhotoCardView.swift    # 三向手势卡片
+    ├── DuplicateDetectionView.swift # 重复照片
+    ├── SmartCleanupView.swift # 截图与模糊
+    ├── PendingDeleteView.swift      # 待删除列表
+    ├── BlindBoxView.swift     # 照片盲盒
+    ├── SettingsView.swift     # 设置（隐私声明）
+    └── PaywallView.swift      # 付费墙
+docs/
+├── privacy-policy/index.html  # GitHub Pages 隐私政策模板
+└── appstore-screenshots-guide.md # 上架截图与审核检查清单
 ```
 
-## 🚀 快速开始
+## 🚀 上架前必改配置（`PicPick/Config.swift`）
 
-### 环境要求
-- macOS 13.0+
-- Xcode 15.0+
-- iOS 16.0+ 真机或模拟器
+```swift
+// 1. 隐私政策地址（GitHub Pages 发布后替换）
+static let privacyPolicyURL = URL(string: "https://<你的用户名>.github.io/PicPick/privacy-policy")!
 
-### 安装步骤
+// 2. Pro 商品 ID（与 App Store Connect 创建的非消耗型商品一致）
+static let proProductID = "lichao.PicPick.pro.unlock"
+```
 
-1. **克隆项目**
-   ```bash
-   git clone <repository-url>
-   cd PicPick
-   ```
-
-2. **打开项目**
-   ```bash
-   open PicPick.xcodeproj
-   ```
-
-3. **配置 Info.plist（重要！）**
-
-   如果项目在 Xcode 中没有自动识别 Info.plist，请按以下步骤操作：
-
-   a. 在 Xcode 中选择项目根目录
-   b. 选择 **PicPick** target
-   c. 进入 **Info** 选项卡
-   d. 添加以下权限描述：
-
-   | Key | Value |
-   |-----|-------|
-   | Privacy - Photo Library Usage Description | PicPick 需要访问您的相册来帮助您浏览和管理照片。 |
-   | Privacy - Photo Library Additions Usage Description | PicPick 需要此权限来保存照片到您的相册。 |
-
-   或者，在项目设置中指定 Info.plist 文件路径：
-   - Target Settings → Build Settings
-   - 搜索 "Info.plist File"
-   - 设置为：`PicPick/Info.plist`
-
-4. **运行项目**
-   - 选择目标设备（建议使用真机测试相册功能）
-   - 点击 Run (⌘R) 或选择菜单 Product → Run
+详细上架步骤（GitHub Pages 开启、截图脚本、审核检查清单、StoreKit 本地调试）见 `docs/appstore-screenshots-guide.md`。
 
 ## 📱 使用指南
 
-### 首次使用
-1. 启动应用后，会请求相册访问权限
-2. 点击"授权访问"按钮
-3. 在系统弹窗中选择"允许访问所有照片"
-
-### 基本操作
-- **左滑** - 标记照片为删除（显示红色图标）
-- **右滑** - 标记照片为保留（显示绿色图标）
-- **撤销** - 点击左下角撤销按钮
-- **日期筛选** - 点击顶部筛选图标，选择日期范围
-- **批量删除** - 点击底部删除按钮，确认后执行删除
-
-### 高级功能
-- **快速日期选择**: 支持"最近 7 天"、"最近 30 天"等快捷选项
-- **进度追踪**: 顶部实时显示处理进度
-- **空间预览**: 删除确认时显示将释放的存储空间
-
-## ⚠️ 注意事项
-
-### 权限配置
-- ✅ 必须在 Info.plist 中添加相册权限描述，否则应用会崩溃
-- ✅ 建议在真机上测试，模拟器可能无法完全模拟相册功能
-
-### 性能优化
-- ✅ 使用缩略图加载，避免内存溢出
-- ✅ 实现了图片预加载机制
-- ✅ 批量操作前会显示预估信息
-
-### 数据安全
-- ✅ 删除操作需要二次确认
-- ✅ 显示清晰的警告提示
-- ✅ 删除后无法恢复（系统级删除）
-
-## 🎯 功能演示
-
-### 1. 主界面
-- 顶部：进度条 + 已处理/总数统计
-- 中间：卡片式照片展示
-- 底部：撤销按钮 + 删除按钮 + 手势提示
-
-### 2. 滑动交互
-- 向左滑动：红色删除指示器逐渐显示
-- 向右滑动：绿色保留指示器逐渐显示
-- 释放时：超过阈值触发操作，否则回弹
-
-### 3. 日期筛选
-- 开启/关闭筛选开关
-- 选择开始和结束日期
-- 快速选择常用时间范围
-- 显示筛选信息和天数统计
-
-### 4. 删除确认
-- 显示待删除照片数量
-- 显示预计释放的存储空间
-- 二次确认 + 警告提示
-- 删除过程中显示进度
-
-## 🔧 自定义配置
-
-### 修改滑动阈值
-在 `PhotoCardView.swift` 中修改：
-```swift
-private let swipeThreshold: CGFloat = 100  // 默认 100
-```
-
-### 修改预加载数量
-在 `PhotoManagementViewModel.swift` 中修改：
-```swift
-private func preloadNextImages(count: Int = 3)  // 默认 3 张
-```
-
-### 修改主题颜色
-在视图文件中搜索 `.blue` 和 `.red`，替换为你喜欢的颜色。
-
-## 🐛 故障排查
-
-### 问题：应用启动即崩溃
-**解决方案**: 检查 Info.plist 是否正确配置了相册权限描述
-
-### 问题：无法访问相册
-**解决方案**:
-1. 检查权限是否授予
-2. 前往 设置 → PicPick → 照片 → 选择"所有照片"
-
-### 问题：照片加载缓慢
-**解决方案**:
-1. 减少预加载数量
-2. 降低缩略图目标尺寸
-3. 确保网络连接（iCloud 照片）
-
-### 问题：删除失败
-**解决方案**:
-1. 检查是否有写入权限
-2. 确认照片不是系统保护的
-3. 重启应用后重试
-
-## 📝 开发说明
-
-### 代码规范
-- ✅ MVVM 架构严格分层
-- ✅ 所有异步操作使用 async/await
-- ✅ SwiftUI 视图拆分为可复用组件
-- ✅ 完整的错误处理和用户提示
-
-### 内存管理
-- ✅ 使用缩略图而非原图
-- ✅ 实现图片缓存管理
-- ✅ 及时释放不需要的资源
-
-### 扩展建议
-- 🔲 添加照片编辑功能
-- 🔲 支持视频管理
-- 🔲 添加相册分类
-- 🔲 导出功能
-- 🔲 云同步支持
+- **开始清理**：默认按月整理，左滑删除 / 右滑保留 / 下拉归档 / 底部撤销
+- **清理按钮**：把标记照片移入「待删除列表」（仍在相册中，可恢复）
+- **待删除列表**：单张/批量恢复，或永久删除（系统确认弹窗 + 「最近删除」30 天兜底）
+- **照片盲盒**：随机月份开盒整理
+- **筛选**：本月（默认）/ 最近 7 天 / 30 天 / 90 天 / 一年 / 自定义 / 全部照片
 
 ## 📄 许可证
 
 本项目仅供学习和参考使用。
-
-## 👨‍💻 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
----
-
-**享受整理照片的乐趣！** 📸✨

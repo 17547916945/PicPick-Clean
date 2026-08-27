@@ -20,6 +20,30 @@
 		D9B74C2D2EBB406C002364A2 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C232EBB406C002364A2 /* PhotoService.swift */; };
 		D9B74C2E2EBB406C002364A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9B74C252EBB406C002364A2 /* Preview Assets.xcassets */; };
 		D9B74C302EBB4A79002364A2 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B74C2F2EBB4A79002364A2 /* FilterView.swift */; };
+		A1B74C512EBB50000023AA01 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C502EBB50000023AA01 /* PhotoAlbum.swift */; };
+		A1B74C532EBB50000023AA02 /* StorageStatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C522EBB50000023AA02 /* StorageStatsStore.swift */; };
+		A1B74C552EBB50000023AA03 /* AlbumPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C542EBB50000023AA03 /* AlbumPickerView.swift */; };
+		A1B74C612EBB50000023AA04 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C602EBB50000023AA04 /* HomeView.swift */; };
+		A1B74C632EBB50000023AA05 /* DuplicateGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C622EBB50000023AA05 /* DuplicateGroup.swift */; };
+		A1B74C652EBB50000023AA06 /* SmartCleanupModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C642EBB50000023AA06 /* SmartCleanupModels.swift */; };
+		A1B74C672EBB50000023AA07 /* PhotoAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C662EBB50000023AA07 /* PhotoAnalysisService.swift */; };
+		A1B74C692EBB50000023AA08 /* DuplicateDetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C682EBB50000023AA08 /* DuplicateDetectionViewModel.swift */; };
+		A1B74C6B2EBB50000023AA09 /* SmartCleanupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C6A2EBB50000023AA09 /* SmartCleanupViewModel.swift */; };
+		A1B74C6D2EBB50000023AA0A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C6C2EBB50000023AA0A /* HomeViewModel.swift */; };
+		A1B74C6F2EBB50000023AA0B /* DuplicateDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C6E2EBB50000023AA0B /* DuplicateDetectionView.swift */; };
+		A1B74C712EBB50000023AA0C /* SmartCleanupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C702EBB50000023AA0C /* SmartCleanupView.swift */; };
+		A1B74C732EBB50000023AA0D /* PendingDeleteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C722EBB50000023AA0D /* PendingDeleteItem.swift */; };
+		A1B74C752EBB50000023AA0E /* PendingDeleteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C742EBB50000023AA0E /* PendingDeleteStore.swift */; };
+		A1B74C772EBB50000023AA0F /* CleaningProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C762EBB50000023AA0F /* CleaningProgressStore.swift */; };
+		A1B74C792EBB50000023AA10 /* PendingDeleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C782EBB50000023AA10 /* PendingDeleteViewModel.swift */; };
+		A1B74C7B2EBB50000023AA11 /* PendingDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C7A2EBB50000023AA11 /* PendingDeleteView.swift */; };
+		A1B74C7D2EBB50000023AA12 /* BlindBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C7C2EBB50000023AA12 /* BlindBoxViewModel.swift */; };
+		A1B74C7F2EBB50000023AA13 /* BlindBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C7E2EBB50000023AA13 /* BlindBoxView.swift */; };
+		A1B74C812EBB50000023AA14 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C802EBB50000023AA14 /* Config.swift */; };
+		A1B74C832EBB50000023AA15 /* DailyQuotaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C822EBB50000023AA15 /* DailyQuotaService.swift */; };
+		A1B74C852EBB50000023AA16 /* PaywallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C842EBB50000023AA16 /* PaywallService.swift */; };
+		A1B74C872EBB50000023AA17 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C862EBB50000023AA17 /* SettingsView.swift */; };
+		A1B74C892EBB50000023AA18 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B74C882EBB50000023AA18 /* PaywallView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +61,30 @@
 		D9B74C232EBB406C002364A2 /* PhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		D9B74C252EBB406C002364A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D9B74C2F2EBB4A79002364A2 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		A1B74C502EBB50000023AA01 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
+		A1B74C522EBB50000023AA02 /* StorageStatsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageStatsStore.swift; sourceTree = "<group>"; };
+		A1B74C542EBB50000023AA03 /* AlbumPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPickerView.swift; sourceTree = "<group>"; };
+		A1B74C602EBB50000023AA04 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A1B74C622EBB50000023AA05 /* DuplicateGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuplicateGroup.swift; sourceTree = "<group>"; };
+		A1B74C642EBB50000023AA06 /* SmartCleanupModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartCleanupModels.swift; sourceTree = "<group>"; };
+		A1B74C662EBB50000023AA07 /* PhotoAnalysisService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAnalysisService.swift; sourceTree = "<group>"; };
+		A1B74C682EBB50000023AA08 /* DuplicateDetectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuplicateDetectionViewModel.swift; sourceTree = "<group>"; };
+		A1B74C6A2EBB50000023AA09 /* SmartCleanupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartCleanupViewModel.swift; sourceTree = "<group>"; };
+		A1B74C6C2EBB50000023AA0A /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A1B74C6E2EBB50000023AA0B /* DuplicateDetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuplicateDetectionView.swift; sourceTree = "<group>"; };
+		A1B74C702EBB50000023AA0C /* SmartCleanupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartCleanupView.swift; sourceTree = "<group>"; };
+		A1B74C722EBB50000023AA0D /* PendingDeleteItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDeleteItem.swift; sourceTree = "<group>"; };
+		A1B74C742EBB50000023AA0E /* PendingDeleteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDeleteStore.swift; sourceTree = "<group>"; };
+		A1B74C762EBB50000023AA0F /* CleaningProgressStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleaningProgressStore.swift; sourceTree = "<group>"; };
+		A1B74C782EBB50000023AA10 /* PendingDeleteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDeleteViewModel.swift; sourceTree = "<group>"; };
+		A1B74C7A2EBB50000023AA11 /* PendingDeleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingDeleteView.swift; sourceTree = "<group>"; };
+		A1B74C7C2EBB50000023AA12 /* BlindBoxViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlindBoxViewModel.swift; sourceTree = "<group>"; };
+		A1B74C7E2EBB50000023AA13 /* BlindBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlindBoxView.swift; sourceTree = "<group>"; };
+		A1B74C802EBB50000023AA14 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		A1B74C822EBB50000023AA15 /* DailyQuotaService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyQuotaService.swift; sourceTree = "<group>"; };
+		A1B74C842EBB50000023AA16 /* PaywallService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaywallService.swift; sourceTree = "<group>"; };
+		A1B74C862EBB50000023AA17 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1B74C882EBB50000023AA18 /* PaywallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +124,7 @@
 				D9B74C1B2EBB406C002364A2 /* ViewModels */,
 				D9B74C1D2EBB406C002364A2 /* Views */,
 				D9B74C0A2EBB3A09002364A2 /* PicPickApp.swift */,
+				A1B74C802EBB50000023AA14 /* Config.swift */,
 				D9B74C0E2EBB3A0B002364A2 /* Assets.xcassets */,
 				D9B74C102EBB3A0B002364A2 /* Preview Content */,
 			);
@@ -94,6 +143,10 @@
 			isa = PBXGroup;
 			children = (
 				D9B74C1A2EBB406C002364A2 /* PhotoItem.swift */,
+				A1B74C502EBB50000023AA01 /* PhotoAlbum.swift */,
+				A1B74C622EBB50000023AA05 /* DuplicateGroup.swift */,
+				A1B74C642EBB50000023AA06 /* SmartCleanupModels.swift */,
+				A1B74C722EBB50000023AA0D /* PendingDeleteItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -102,6 +155,11 @@
 			isa = PBXGroup;
 			children = (
 				D9B74C1C2EBB406C002364A2 /* PhotoManagementViewModel.swift */,
+				A1B74C682EBB50000023AA08 /* DuplicateDetectionViewModel.swift */,
+				A1B74C6A2EBB50000023AA09 /* SmartCleanupViewModel.swift */,
+				A1B74C6C2EBB50000023AA0A /* HomeViewModel.swift */,
+				A1B74C782EBB50000023AA10 /* PendingDeleteViewModel.swift */,
+				A1B74C7C2EBB50000023AA12 /* BlindBoxViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -114,6 +172,14 @@
 				D9B74C1F2EBB406C002364A2 /* DateFilterView.swift */,
 				D9B74C202EBB406C002364A2 /* PhotoCardView.swift */,
 				D9B74C212EBB406C002364A2 /* PhotoManagementView.swift */,
+				A1B74C542EBB50000023AA03 /* AlbumPickerView.swift */,
+				A1B74C602EBB50000023AA04 /* HomeView.swift */,
+				A1B74C6E2EBB50000023AA0B /* DuplicateDetectionView.swift */,
+				A1B74C702EBB50000023AA0C /* SmartCleanupView.swift */,
+				A1B74C7A2EBB50000023AA11 /* PendingDeleteView.swift */,
+				A1B74C7E2EBB50000023AA13 /* BlindBoxView.swift */,
+				A1B74C862EBB50000023AA17 /* SettingsView.swift */,
+				A1B74C882EBB50000023AA18 /* PaywallView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +188,12 @@
 			isa = PBXGroup;
 			children = (
 				D9B74C232EBB406C002364A2 /* PhotoService.swift */,
+				A1B74C522EBB50000023AA02 /* StorageStatsStore.swift */,
+				A1B74C662EBB50000023AA07 /* PhotoAnalysisService.swift */,
+				A1B74C742EBB50000023AA0E /* PendingDeleteStore.swift */,
+				A1B74C762EBB50000023AA0F /* CleaningProgressStore.swift */,
+				A1B74C822EBB50000023AA15 /* DailyQuotaService.swift */,
+				A1B74C842EBB50000023AA16 /* PaywallService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -215,6 +287,30 @@
 				D9B74C2B2EBB406C002364A2 /* PhotoCardView.swift in Sources */,
 				D9B74C2C2EBB406C002364A2 /* PhotoManagementView.swift in Sources */,
 				D9B74C292EBB406C002364A2 /* DeleteConfirmationView.swift in Sources */,
+				A1B74C512EBB50000023AA01 /* PhotoAlbum.swift in Sources */,
+				A1B74C532EBB50000023AA02 /* StorageStatsStore.swift in Sources */,
+				A1B74C552EBB50000023AA03 /* AlbumPickerView.swift in Sources */,
+				A1B74C612EBB50000023AA04 /* HomeView.swift in Sources */,
+				A1B74C632EBB50000023AA05 /* DuplicateGroup.swift in Sources */,
+				A1B74C652EBB50000023AA06 /* SmartCleanupModels.swift in Sources */,
+				A1B74C672EBB50000023AA07 /* PhotoAnalysisService.swift in Sources */,
+				A1B74C692EBB50000023AA08 /* DuplicateDetectionViewModel.swift in Sources */,
+				A1B74C6B2EBB50000023AA09 /* SmartCleanupViewModel.swift in Sources */,
+				A1B74C6D2EBB50000023AA0A /* HomeViewModel.swift in Sources */,
+				A1B74C6F2EBB50000023AA0B /* DuplicateDetectionView.swift in Sources */,
+				A1B74C712EBB50000023AA0C /* SmartCleanupView.swift in Sources */,
+				A1B74C732EBB50000023AA0D /* PendingDeleteItem.swift in Sources */,
+				A1B74C752EBB50000023AA0E /* PendingDeleteStore.swift in Sources */,
+				A1B74C772EBB50000023AA0F /* CleaningProgressStore.swift in Sources */,
+				A1B74C792EBB50000023AA10 /* PendingDeleteViewModel.swift in Sources */,
+				A1B74C7B2EBB50000023AA11 /* PendingDeleteView.swift in Sources */,
+				A1B74C7D2EBB50000023AA12 /* BlindBoxViewModel.swift in Sources */,
+				A1B74C7F2EBB50000023AA13 /* BlindBoxView.swift in Sources */,
+				A1B74C812EBB50000023AA14 /* Config.swift in Sources */,
+				A1B74C832EBB50000023AA15 /* DailyQuotaService.swift in Sources */,
+				A1B74C852EBB50000023AA16 /* PaywallService.swift in Sources */,
+				A1B74C872EBB50000023AA17 /* SettingsView.swift in Sources */,
+				A1B74C892EBB50000023AA18 /* PaywallView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,8 +442,8 @@
 				DEVELOPMENT_TEAM = 4T7529A92F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PicPick 需要此权限来保存照片到您的相册。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PicPick 需要访问您的相册来帮助您浏览和管理照片。";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要此权限来保存清理后的照片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册，帮您快速整理和清理照片";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -379,8 +475,8 @@
 				DEVELOPMENT_TEAM = 4T7529A92F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PicPick 需要此权限来保存照片到您的相册。";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PicPick 需要访问您的相册来帮助您浏览和管理照片。";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要此权限来保存清理后的照片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册，帮您快速整理和清理照片";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

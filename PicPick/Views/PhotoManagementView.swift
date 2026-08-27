@@ -14,8 +14,7 @@ struct PhotoManagementView: View {
     @State private var showFilter = false
 
     var body: some View {
-        NavigationView {
-            ZStack {
+        ZStack {
                 // 背景渐变
                 backgroundGradient
 
@@ -30,7 +29,7 @@ struct PhotoManagementView: View {
                     bottomBar
                 }
             }
-            .navigationTitle("PicPick")
+            .navigationTitle("开始清理")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 toolbarContent
@@ -46,6 +45,19 @@ struct PhotoManagementView: View {
                     }
                 )
             }
+            .sheet(isPresented: $viewModel.showAlbumPicker) {
+                AlbumPickerView(
+                    onSelect: { album in
+                        await viewModel.addCurrentPhoto(to: album)
+                    },
+                    onCreate: { title in
+                        await viewModel.createAlbumAndAddCurrentPhoto(named: title)
+                    }
+                )
+            }
+            .sheet(isPresented: $viewModel.showPaywall) {
+                PaywallView()
+            }
             .alert("提示", isPresented: $viewModel.showError) {
                 Button("确定", role: .cancel) {}
             } message: {
@@ -53,14 +65,16 @@ struct PhotoManagementView: View {
                     Text(errorMessage)
                 }
             }
+            .overlay(alignment: .bottom) {
+                toastOverlay
+            }
             .overlay {
                 if viewModel.showDeleteConfirmation {
                     deleteConfirmationOverlay
                 }
             }
-            .task {
-                await initializeApp()
-            }
+        .task {
+            await initializeApp()
         }
     }
 
@@ -79,12 +93,54 @@ struct PhotoManagementView: View {
     }
 
     private var topBar: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
+            // 队列标题 + 已处理计数
+            HStack(alignment: .firstTextBaseline) {
+                Text(viewModel.queueTitle)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+
+                if !viewModel.isProUnlocked {
+                    Text("今日剩 \(viewModel.quotaRemainingToday)")
+                        .font(.caption2)
+                        .foregroundColor(.blue)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Capsule().fill(Color.blue.opacity(0.1)))
+                        .onTapGesture {
+                            viewModel.showPaywall = true
+                        }
+                }
+
+                Spacer()
+
+                Text("已处理 \(viewModel.processedCount) / \(viewModel.totalCount)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
             // 进度条
             progressBar
 
-            // 进度信息
-            progressInfo
+            // 存储统计行
+            HStack(spacing: 12) {
+                Label(
+                    "累计释放 \(viewModel.cumulativeFreedFormatted)",
+                    systemImage: "internaldrive.fill"
+                )
+                .font(.caption)
+                .foregroundColor(.green)
+
+                Spacer(minLength: 0)
+
+                if viewModel.sessionMarkedBytes > 0 {
+                    Text("本次可释放 \(viewModel.sessionMarkedFormatted)")
+                        .font(.caption)
+                        .foregroundColor(.orange)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+            }
         }
         .padding()
         .background(
@@ -118,33 +174,6 @@ struct PhotoManagementView: View {
             }
         }
         .frame(height: 8)
-    }
-
-    private var progressInfo: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "photo.stack")
-                .foregroundColor(.blue)
-                .font(.caption)
-
-            // 使用单个 Text 视图确保不会换行，并支持自适应缩放
-            Text(progressText)
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .foregroundColor(.primary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-
-            Spacer(minLength: 0)
-        }
-    }
-
-    /// 进度文本（紧凑格式）
-    private var progressText: String {
-        if viewModel.deleteCount > 0 {
-            return "已处理 \(viewModel.processedCount)/\(viewModel.totalCount) · 删除 \(viewModel.deleteCount) · 节省 \(viewModel.deletedPhotosSizeFormatted)"
-        } else {
-            return "已处理 \(viewModel.processedCount)/\(viewModel.totalCount)"
-        }
     }
 
     @ViewBuilder
@@ -282,8 +311,11 @@ struct PhotoManagementView: View {
                 let nextPhoto = viewModel.photos[viewModel.currentPhotoIndex + 1]
                 PhotoCardView(
                     photo: nextPhoto,
+                    index: viewModel.currentPhotoIndex + 2,
+                    total: viewModel.totalCount,
                     onSwipeLeft: {},
-                    onSwipeRight: {}
+                    onSwipeRight: {},
+                    onSwipeDown: {}
                 )
                 .id(nextPhoto.id) // 强制重新创建视图
                 .scaleEffect(0.95)
@@ -295,11 +327,16 @@ struct PhotoManagementView: View {
             // 当前卡片
             PhotoCardView(
                 photo: currentPhoto,
+                index: viewModel.currentPhotoIndex + 1,
+                total: viewModel.totalCount,
                 onSwipeLeft: {
                     viewModel.swipeLeft()
                 },
                 onSwipeRight: {
                     viewModel.swipeRight()
+                },
+                onSwipeDown: {
+                    viewModel.swipeDown()
                 }
             )
             .id(currentPhoto.id) // 添加唯一标识，强制 SwiftUI 在照片改变时重新创建视图
@@ -341,7 +378,7 @@ struct PhotoManagementView: View {
                     Button {
                         viewModel.showDeleteConfirmationDialog()
                     } label: {
-                        Label("删除标记的照片", systemImage: "trash.fill")
+                        Label("移入待删除列表", systemImage: "trash.fill")
                             .font(.headline)
                             .foregroundColor(.white)
                             .frame(maxWidth: 300)
@@ -355,7 +392,7 @@ struct PhotoManagementView: View {
 
                 Button {
                     Task {
-                        await viewModel.refreshPhotos()
+                        await viewModel.restartFromBeginning()
                     }
                 } label: {
                     Label("重新开始", systemImage: "arrow.clockwise")
@@ -451,14 +488,50 @@ struct PhotoManagementView: View {
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                Task {
-                    await viewModel.refreshPhotos()
+            HStack(spacing: 16) {
+                // 待删除列表入口（角标显示数量）
+                NavigationLink {
+                    PendingDeleteView()
+                } label: {
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "tray.full.fill")
+                        if viewModel.pendingDeleteCount > 0 {
+                            Text("\(viewModel.pendingDeleteCount)")
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(3)
+                                .background(Circle().fill(Color.red))
+                                .offset(x: 8, y: -8)
+                        }
+                    }
                 }
-            } label: {
-                Label("刷新", systemImage: "arrow.clockwise")
+
+                Button {
+                    Task {
+                        await viewModel.refreshPhotos()
+                    }
+                } label: {
+                    Label("刷新", systemImage: "arrow.clockwise")
+                }
+                .disabled(viewModel.isLoading)
             }
-            .disabled(viewModel.isLoading)
+        }
+    }
+
+    /// 轻提示浮层
+    @ViewBuilder
+    private var toastOverlay: some View {
+        if let toast = viewModel.toastMessage {
+            Text(toast)
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(
+                    Capsule().fill(Color.black.opacity(0.85))
+                )
+                .padding(.bottom, 120)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
         }
     }
 
